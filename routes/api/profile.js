@@ -211,6 +211,7 @@ router.post(
   (req, res) => {
     const { errors, isValid } = validateEducationInput(req.body);
 
+    console.log(req.body.from);
     // Check validation
     if (!isValid) {
       // Return any errors with 400 status
@@ -229,6 +230,7 @@ router.post(
           description: req.body.description
         };
 
+        console.log(req.body.from);
         // Add to education array of the profile at the beginning(unshift)
         profile.education.unshift(newEdu);
 
@@ -255,9 +257,9 @@ router.delete(
           .indexOf(req.params.exp_id);
 
         // Splice out of array
-
-        profile.experience.splice(removeIndex, 1);
-
+        if (removeIndex !== -1) {
+          profile.experience.splice(removeIndex, 1);
+        }
         // Save
         profile.save().then(profile => res.json(profile));
       })
@@ -281,9 +283,9 @@ router.delete(
           .indexOf(req.params.edu_id);
 
         // Splice out of array
-
-        profile.education.splice(removeIndex, 1);
-
+        if (removeIndex !== -1) {
+          profile.education.splice(removeIndex, 1);
+        }
         // Save
         profile.save().then(profile => res.json(profile));
       })
