@@ -1,16 +1,9 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-//Create schema
-const ProfileSchema = new Schema({
+const ProfileSchema = new mongoose.Schema({
   user: {
-    type: Schema.Types.ObjectId, // Associates the user by it's ID
-    ref: "users" // Refferences the collection
-  },
-  handle: {
-    type: String,
-    required: true,
-    max: 40 // Najvise 40 charactera
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
   },
   company: {
     type: String
@@ -26,7 +19,7 @@ const ProfileSchema = new Schema({
     required: true
   },
   skills: {
-    type: [String], //Array of strings
+    type: [String],
     required: true
   },
   bio: {
@@ -98,23 +91,23 @@ const ProfileSchema = new Schema({
     youtube: {
       type: String
     },
-    facebook: {
-      type: String
-    },
     twitter: {
       type: String
     },
-    instagram: {
+    facebook: {
       type: String
     },
     linkedin: {
       type: String
     },
-    date: {
-      type: Date,
-      default: Date.now
+    instagram: {
+      type: String
     }
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 
-module.exports = Profile = mongoose.model("profile", ProfileSchema);
+module.exports = Profile = mongoose.model('profile', ProfileSchema);
