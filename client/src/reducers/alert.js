@@ -1,6 +1,7 @@
-import { SET_ALERT, REMOVE_ALERT } from "../actions/types";
+import { SET_ALERT, REMOVE_ALERT } from '../actions/types';
+
 const initialState = [];
-//State je immutable,pa u caseu kad returnamo moramo pozvat cili state [...state]
+
 export default function(state = initialState, action) {
   const { type, payload } = action;
 
