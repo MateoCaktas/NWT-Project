@@ -19,3 +19,48 @@ export const getCurrentProfile = () => async dispatch => {
     });
   } //err.response.status nam moze vratit 400 ili koji god da je status
 };
+
+// Create or update profile
+export const createProfile = (
+  formData,
+  history,
+  edit = false
+) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    const res = await axios.post("/api/profile", formData, config);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+
+    dispatch(
+      setAlert(
+        edit ? "Profile has been updated." : "Profile created.",
+        "success"
+      )
+    );
+
+    // ako kreiramo novi profil, redirect na dashboard.
+    // Redirect sa actionom je drukciji od redirecta u komponenti (return redirect...)
+    if (!edit) {
+      history.push("/dashboard");
+    }
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, "danger")));
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
