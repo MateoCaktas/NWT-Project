@@ -47,7 +47,7 @@ const ProfileTop = ({
         )}
 
         {social.linkedin && (
-          <a href="#" target="_blank" rel="noopener noreferrer">
+          <a href={social.linkedin} target="_blank" rel="noopener noreferrer">
             <i className="fab fa-linkedin fa-2x" />
           </a>
         )}
